@@ -7,13 +7,20 @@
 let body = document.querySelector("body");
 let status = document.getElementById("status");
 let timerLabel = document.getElementById("timerLabel");
+let reload = document.getElementById("reload");
+
+//Hide reload button on loading
+reload.style.display = "none";
 
 //Game variables
 let lost = false;
 let won = false;
-let buttonCount = 2;
+// let buttonCount = 2;
+
+let buttonCount = Math.floor(1 + Math.random() * 3);
+
 let clicked = [];
-let timer = Math.floor(500 + Math.random() * 800);
+let timer = Math.floor(2000 + Math.random() * 800);
 
 //Function that uses every to check that array2 only contains elements of array1
 function containsOnly(array1, array2) {
@@ -61,7 +68,8 @@ let addButton = index => {
     //If clicked array contains only true...
     if (containsOnly([true], clicked)) {
       won = true;
-      status.innerText = "You won! Reload to try again";
+      status.innerText = "You won!";
+      reload.style.display = "block";
     }
   });
   body.appendChild(button);
@@ -73,7 +81,7 @@ let addButton = index => {
 loadClicked(buttonCount);
 console.log(clicked);
 //Add timer label
-timerLabel.innerText = "You have " + timer + "ms to tap all the buttons!";
+timerLabel.innerText = `You have ${timer} ms to tap all ${buttonCount} buttons!`;
 //Add buttons according to button count, starting at index 1 - no 0 button!
 for (let x = 1; x < buttonCount + 1; x++) {
   addButton(x);
@@ -84,4 +92,5 @@ setTimeout(() => {
   if (won || lost) return;
   lost = true;
   status.innerText = "You lost!";
+  reload.style.display = "block";
 }, timer);
