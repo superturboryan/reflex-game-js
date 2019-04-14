@@ -20,7 +20,7 @@ let won = false;
 let buttonCount = Math.floor(1 + Math.random() * 3);
 
 let clicked = [];
-let timer = Math.floor(2000 + Math.random() * 800);
+let timer = Math.floor(1400 + Math.random() * 800);
 
 //Function that uses every to check that array2 only contains elements of array1
 function containsOnly(array1, array2) {
@@ -36,6 +36,8 @@ let loadClicked = num => {
 
 let addButton = index => {
   let button = document.createElement("button");
+
+  button.className = "w3 h3 ma2";
 
   let label = index;
 
