@@ -1,6 +1,8 @@
 //2700 DeocdeMTL april2019 workshop
 //Ryan Forsyth
 
+//Imports
+
 //Document variables
 let body = document.querySelector("body");
 let status = document.getElementById("status");
@@ -9,9 +11,14 @@ let timerLabel = document.getElementById("timerLabel");
 //Game variables
 let lost = false;
 let won = false;
-let buttonCount = 3;
+let buttonCount = 2;
 let clicked = [];
 let timer = Math.floor(500 + Math.random() * 800);
+
+//Function that uses every to check that array2 only contains elements of array1
+function containsOnly(array1, array2) {
+  return array2.every(elem => array1.includes(elem));
+}
 
 //Game setup functions
 let loadClicked = num => {
@@ -45,11 +52,14 @@ let addButton = index => {
       break;
   }
 
+  console.log(`Label for index ${index} is "${label}"`);
+
   button.innerText = label;
   button.addEventListener("click", () => {
     if (won || lost) return;
     clicked[index - 1] = true;
-    if (!clicked.includes(false)) {
+    //If clicked array contains only true...
+    if (containsOnly([true], clicked)) {
       won = true;
       status.innerText = "You won! Reload to try again";
     }
@@ -59,6 +69,9 @@ let addButton = index => {
 
 //Setup UI
 
+//Populate clicked array
+loadClicked(buttonCount);
+console.log(clicked);
 //Add timer label
 timerLabel.innerText = "You have " + timer + "ms to tap all the buttons!";
 //Add buttons according to button count, starting at index 1 - no 0 button!
