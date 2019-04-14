@@ -1,9 +1,25 @@
+//2700 DeocdeMTL april2019 workshop
+//Ryan Forsyth
+
+//Document variables
 let body = document.querySelector("body");
+let status = document.getElementById("status");
+let timerLabel = document.getElementById("timerLabel");
+
+//Game variables
 let lost = false;
 let won = false;
-let buttonNum = 3;
-let clicked = [false, false, false];
-//////////////////////////////////////////////////////
+let buttonCount = 3;
+let clicked = [];
+let timer = Math.floor(500 + Math.random() * 800);
+
+//Game setup functions
+let loadClicked = num => {
+  for (let i = 0; i < num; i++) {
+    clicked.push("false");
+  }
+};
+
 let addButton = index => {
   let button = document.createElement("button");
 
@@ -40,22 +56,17 @@ let addButton = index => {
   });
   body.appendChild(button);
 };
-//////////////////////////////////////////////////////
-//
-//Random value between 500 and 1300
-let timer = Math.floor(500 + Math.random() * 800);
-//
-//Select the timer label and update with random time
-let timerLabel = document.getElementById("timerLabel");
-timerLabel.innerText = "You have " + timer + "ms to tap all the buttons!";
 
-let status = document.getElementById("status");
-//
-//Add buttons
-for (let x = 1; x < buttonNum + 1; x++) {
+//Setup UI
+
+//Add timer label
+timerLabel.innerText = "You have " + timer + "ms to tap all the buttons!";
+//Add buttons according to button count, starting at index 1 - no 0 button!
+for (let x = 1; x < buttonCount + 1; x++) {
   addButton(x);
 }
 
+//Start game with timer variable setting game length
 setTimeout(() => {
   if (won || lost) return;
   lost = true;
