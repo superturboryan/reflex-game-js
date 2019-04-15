@@ -2,6 +2,7 @@
 //Ryan Forsyth
 
 //Imports
+import NumWord from "./NumWord.js";
 
 //Document variables
 let body = document.querySelector("body");
@@ -15,7 +16,6 @@ reload.style.display = "none";
 //Game variables
 let lost = false;
 let won = false;
-// let buttonCount = 2;
 
 let buttonCount = Math.floor(1 + Math.random() * 3);
 
@@ -46,27 +46,7 @@ let addButton = index => {
 
   button.className = "button w3 h3 ma2 br4";
 
-  let label = index;
-
-  switch (label) {
-    case 1:
-      label = "one";
-      break;
-    case 2:
-      label = "two";
-      break;
-    case 3:
-      label = "three";
-      break;
-    case 4:
-      label = "four";
-      break;
-    case 5:
-      label = "five";
-      break;
-    default:
-      break;
-  }
+  let label = NumWord.translate(index);
 
   console.log(`Label for index ${index} is "${label}"`);
 

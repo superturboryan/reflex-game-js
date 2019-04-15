@@ -2,6 +2,7 @@
 //Ryan Forsyth
 
 //Imports
+import NumWord from "./NumWord.js";
 
 //Document variables
 let body = document.querySelector("body");
@@ -17,8 +18,9 @@ reload.style.display = "none";
 let won = false;
 let lost = false;
 let clicks = 0;
-let goal = Math.floor(2 + Math.random() * 4);
-let buttAppear = Math.floor(Math.random() * 3000);
+let goal = Math.floor(2 + Math.random() * 4); //Random amount of clicks between 2 and 5
+let buttAppear = Math.floor(Math.random() * 5000); //Randomly appears within 5 seconds
+let timeLimit = 3000;
 
 let clicked = () => {
   clicks++;
@@ -47,40 +49,7 @@ button.innerText = `${goal - clicks}`;
 let setPosition = () => {
   let buttPosition = Math.floor(1 + Math.random() * 9);
 
-  let id = "";
-
-  switch (buttPosition) {
-    case 1:
-      id = "one";
-      break;
-    case 2:
-      id = "two";
-      break;
-    case 3:
-      id = "three";
-      break;
-    case 4:
-      id = "four";
-      break;
-    case 5:
-      id = "five";
-      break;
-    case 6:
-      id = "six";
-      break;
-    case 7:
-      id = "seven";
-      break;
-    case 8:
-      id = "eight";
-      break;
-    case 9:
-      id = "nine";
-      break;
-    default:
-      id = "one";
-      break;
-  }
+  let id = NumWord.translate(buttPosition);
 
   let square = document.getElementById(id);
 
@@ -98,15 +67,18 @@ button.addEventListener("click", () => {
   }
 });
 
+console.log("Numword function" + NumWord.translate(6));
+
 //Set button position after random amount of time
 setTimeout(() => {
   setPosition();
 }, buttAppear);
 
+//If user hasn't won within time limit
 setTimeout(() => {
   if (won || lost) return;
   lost = true;
   status.innerText = "You lost!";
   reload.style.display = "block";
   hideGrid();
-}, buttAppear + 3000);
+}, buttAppear + timeLimit); //You have 3 seconds after button appears to click it
