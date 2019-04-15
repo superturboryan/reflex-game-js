@@ -8,6 +8,7 @@ let body = document.querySelector("body");
 let instructLabel = document.getElementById("instructLabel");
 let status = document.getElementById("status");
 let reload = document.getElementById("reload");
+let buttonGrid = document.getElementById("buttonGrid");
 
 //Hide reload when page loads
 reload.style.display = "none";
@@ -16,15 +17,20 @@ reload.style.display = "none";
 let won = false;
 let lost = false;
 let clicks = 0;
+let goal = Math.floor(2 + Math.random() * 4);
+let buttAppear = Math.floor(Math.random() * 3000);
 
 let clicked = () => {
   clicks++;
-  button.innerText = `${3 - clicks}`;
+  button.innerText = `${goal - clicks}`;
 };
 
 let button = document.createElement("button");
 
-button.className = "button w3 h3 mt5 br4";
+button.className = "button o-40";
+button.style.height = "150px";
+button.style.width = "150px";
+// button.style.margin = "5px";
 
 let hideButtons = () => {
   for (button of buttons) {
@@ -32,28 +38,75 @@ let hideButtons = () => {
   }
 };
 
+let hideGrid = () => {
+  buttonGrid.style.display = "none";
+};
+
+button.innerText = `${goal - clicks}`;
+
+let setPosition = () => {
+  let buttPosition = Math.floor(1 + Math.random() * 9);
+
+  let id = "";
+
+  switch (buttPosition) {
+    case 1:
+      id = "one";
+      break;
+    case 2:
+      id = "two";
+      break;
+    case 3:
+      id = "three";
+      break;
+    case 4:
+      id = "four";
+      break;
+    case 5:
+      id = "five";
+      break;
+    case 6:
+      id = "six";
+      break;
+    case 7:
+      id = "seven";
+      break;
+    case 8:
+      id = "eight";
+      break;
+    case 9:
+      id = "nine";
+      break;
+    default:
+      id = "one";
+      break;
+  }
+
+  let square = document.getElementById(id);
+
+  square.appendChild(button);
+};
+
 button.addEventListener("click", () => {
   clicked();
-
-  if (clicks === 3) {
+  setPosition();
+  if (clicks === goal) {
     won = true;
     status.innerText = "You won!";
     reload.style.display = "block";
-    hideButtons();
+    hideGrid();
   }
 });
 
-button.innerText = `${3 - clicks}`;
-
-body.appendChild(button);
-
-//Select all created buttons into one array so they can be hidden together
-let buttons = document.getElementsByClassName("button");
+//Set button position after random amount of time
+setTimeout(() => {
+  setPosition();
+}, buttAppear);
 
 setTimeout(() => {
   if (won || lost) return;
   lost = true;
   status.innerText = "You lost!";
   reload.style.display = "block";
-  hideButtons();
-}, 1500);
+  hideGrid();
+}, buttAppear + 3000);
