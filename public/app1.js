@@ -28,6 +28,13 @@ function containsOnly(array1, array2) {
 }
 
 //Game setup functions
+
+let hideButtons = () => {
+  for (button of buttons) {
+    button.style.display = "none";
+  }
+};
+
 let loadClicked = num => {
   for (let i = 0; i < num; i++) {
     clicked.push("false");
@@ -37,7 +44,7 @@ let loadClicked = num => {
 let addButton = index => {
   let button = document.createElement("button");
 
-  button.className = "w3 h3 ma2";
+  button.className = "button w3 h3 ma2";
 
   let label = index;
 
@@ -72,8 +79,10 @@ let addButton = index => {
       won = true;
       status.innerText = "You won!";
       reload.style.display = "block";
+      hideButtons();
     }
   });
+
   body.appendChild(button);
 };
 
@@ -89,10 +98,13 @@ for (let x = 1; x < buttonCount + 1; x++) {
   addButton(x);
 }
 
+let buttons = document.getElementsByClassName("button");
+
 //Start game with timer variable setting game length
 setTimeout(() => {
   if (won || lost) return;
   lost = true;
   status.innerText = "You lost!";
   reload.style.display = "block";
+  hideButtons();
 }, timer);
