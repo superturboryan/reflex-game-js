@@ -6,7 +6,6 @@ import NumWord from "./NumWord.js";
 
 //Document variables
 let body = document.querySelector("body");
-let instructLabel = document.getElementById("instructLabel");
 let status = document.getElementById("status");
 let reload = document.getElementById("reload");
 let buttonGrid = document.getElementById("buttonGrid");
