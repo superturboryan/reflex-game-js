@@ -44,7 +44,7 @@ let loadClicked = num => {
 let addButton = index => {
   let button = document.createElement("button");
 
-  button.className = "button w3 h3 ma2";
+  button.className = "button w3 h3 ma2 br4";
 
   let label = index;
 
@@ -97,7 +97,7 @@ timerLabel.innerText = `You have ${timer} ms to tap all ${buttonCount} buttons!`
 for (let x = 1; x < buttonCount + 1; x++) {
   addButton(x);
 }
-
+//Select all created buttons into one array so they can be hidden together
 let buttons = document.getElementsByClassName("button");
 
 //Start game with timer variable setting game length
