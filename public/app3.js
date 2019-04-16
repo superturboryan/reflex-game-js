@@ -2,7 +2,7 @@ let body = document.querySelector("body");
 let scoreLabel = document.getElementById("scoreLabel");
 let rtLabel = document.getElementById("rtLabel");
 let insructLabel = document.getElementById("instructLabel");
-let winnerLabel = document.getElementById("winner");
+let pressSpace = document.getElementById("pressSpace");
 let indicator = document.getElementById("indicator");
 let qScore = 0;
 let pScore = 0;
@@ -10,10 +10,11 @@ let rt = 0;
 let pb;
 let startTime;
 
-indicator.style.width = "400px";
-indicator.style.height = "400px";
+indicator.style.width = "333px";
+indicator.style.height = "333px";
+indicator.style.display = "none";
 
-let go = false;
+let greenLight = false;
 
 insructLabel.innerText = `You're at the red light.
 
@@ -26,6 +27,8 @@ Player Q lets it rip with keyCode 81 and Player P with 80.
 When you're at the next intersection, the winner starts the 
 countdown with the spacebar (32).`;
 
+pressSpace.innerText = "Press 32 to begin";
+
 let updateLabels = () => {
   scoreLabel.innerText = `Current Score: \nQ - ${qScore} wins \nP - ${pScore} wins`;
   rtLabel.innerText = `RT: ${rt}ms \nFastest: ${
@@ -33,15 +36,24 @@ let updateLabels = () => {
   }`;
 };
 
+let startNew = input => {
+  if (input.keyCode === 32) {
+    pressSpace.style.display = "none";
+    indicator.style.display = "block";
+    window.removeEventListener("keydown", startNew);
+    startGame();
+  }
+};
+
 let popup = () => {
   startTime = new Date();
   indicator.style.backgroundColor = "green";
   indicator.innerText = "GO GO GO!";
-  go = true;
+  greenLight = true;
 };
 
-let attack = input => {
-  if (go === false) {
+let throttle = input => {
+  if (greenLight === false) {
     if (input.keyCode === 81) {
       indicator.innerText = "Player Q ran the light!";
       pScore++;
@@ -51,13 +63,13 @@ let attack = input => {
       qScore++;
       gameOver();
     }
-  } else if (go === true) {
+  } else if (greenLight === true) {
     if (input.keyCode === 81) {
-      indicator.innerText = "Player Q was quicker!";
+      indicator.innerText = "Q was quicker!";
       qScore++;
       gameOver();
     } else if (input.keyCode === 80) {
-      indicator.innerText = "Player P was quicker!";
+      indicator.innerText = "P was quicker!";
       pScore++;
       gameOver();
     }
@@ -65,7 +77,7 @@ let attack = input => {
 };
 
 let resetGame = () => {
-  go = false;
+  greenLight = false;
   indicator.style.backgroundColor = "red";
   indicator.innerText = "";
 
@@ -87,14 +99,14 @@ let gameOver = () => {
   if (rt < pb) pb = rt;
   updateLabels();
 
-  window.removeEventListener("keydown", attack);
+  window.removeEventListener("keydown", throttle);
   window.addEventListener("keydown", nextMatch);
 };
 
 let startGame = () => {
   let randomDelay = Math.floor(Math.random() * 2000);
 
-  window.addEventListener("keydown", attack);
+  window.addEventListener("keydown", throttle);
   setTimeout(() => {
     indicator.style.backgroundColor = "orange";
   }, 3000);
@@ -103,4 +115,5 @@ let startGame = () => {
 };
 
 updateLabels();
-startGame();
+
+window.addEventListener("keydown", startNew);

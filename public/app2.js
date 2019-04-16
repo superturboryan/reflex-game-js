@@ -52,6 +52,7 @@ let setPosition = () => {
 
   let square = document.getElementById(id);
 
+  //Select a random square on the grid and add the button
   square.appendChild(button);
 };
 
