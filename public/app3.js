@@ -1,46 +1,63 @@
 let body = document.querySelector("body");
 let scoreLabel = document.getElementById("scoreLabel");
+let rtLabel = document.getElementById("rtLabel");
 let insructLabel = document.getElementById("instructLabel");
 let winnerLabel = document.getElementById("winner");
 let indicator = document.getElementById("indicator");
 let qScore = 0;
 let pScore = 0;
+let rt = 0;
+let pb;
+let startTime;
 
 indicator.style.width = "400px";
 indicator.style.height = "400px";
 
 let go = false;
 
-insructLabel.innerText = `The game is "Q vs P"\nWait for the signal, then strike your opponent before he strikes you in order to win! 
-Be careful now, early strikes will disqualify you >:)
-Controls are real simple: Player Q strikes with keyCode 81 and player P strikes with keyCode 80.
-The winner taps the spacebar (32) when they are ready to begin the next match`;
+insructLabel.innerText = `You're at the red light.
 
-scoreLabel.innerText = `Current Score: \nPlayer Q has ${qScore} points \nPlayer P has ${pScore} points`;
+You hear the adjacent motorcycle revving its engine -
+it's a nice bike, looks to be of similar performance.
+only one way to beat this guy to the next light...
+
+Controls are real simple: 
+Player Q lets it rip with keyCode 81 and Player P with 80.
+When you're at the next intersection, the winner starts the 
+countdown with the spacebar (32).`;
+
+let updateLabels = () => {
+  scoreLabel.innerText = `Current Score: \nQ - ${qScore} wins \nP - ${pScore} wins`;
+  rtLabel.innerText = `RT: ${rt}ms \nFastest: ${
+    pb ? pb + "ms" : "You gotta try once to be the fastest..."
+  }`;
+};
 
 let popup = () => {
+  startTime = new Date();
   indicator.style.backgroundColor = "green";
+  indicator.innerText = "GO GO GO!";
   go = true;
 };
 
 let attack = input => {
   if (go === false) {
     if (input.keyCode === 81) {
-      indicator.innerText = "Player Q false start!";
+      indicator.innerText = "Player Q ran the light!";
       pScore++;
       gameOver();
     } else if (input.keyCode === 80) {
-      indicator.innerText = "Player P false start!";
+      indicator.innerText = "Player P ran the light!";
       qScore++;
       gameOver();
     }
   } else if (go === true) {
     if (input.keyCode === 81) {
-      indicator.innerText = "Player Q wins!";
+      indicator.innerText = "Player Q was quicker!";
       qScore++;
       gameOver();
     } else if (input.keyCode === 80) {
-      indicator.innerText = "Player P wins!";
+      indicator.innerText = "Player P was quicker!";
       pScore++;
       gameOver();
     }
@@ -52,7 +69,7 @@ let resetGame = () => {
   indicator.style.backgroundColor = "red";
   indicator.innerText = "";
 
-  console.log(`Current score: ${qScore}`);
+  //   console.log(`Current score: ${qScore}`);
   window.removeEventListener("keydown", nextMatch);
   startGame();
 };
@@ -64,7 +81,11 @@ let nextMatch = input => {
 };
 
 let gameOver = () => {
-  scoreLabel.innerText = `Current Score: \nPlayer Q has ${qScore} points \nPlayer P has ${pScore} points`;
+  let endTime = new Date();
+  rt = endTime - startTime;
+  if (pb === undefined) pb = rt;
+  if (rt < pb) pb = rt;
+  updateLabels();
 
   window.removeEventListener("keydown", attack);
   window.addEventListener("keydown", nextMatch);
@@ -78,7 +99,8 @@ let startGame = () => {
     indicator.style.backgroundColor = "orange";
   }, 3000);
 
-  setTimeout(popup, 3000 + randomDelay);
+  setTimeout(popup, 3300 + randomDelay);
 };
 
+updateLabels();
 startGame();
