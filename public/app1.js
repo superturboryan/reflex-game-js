@@ -29,12 +29,6 @@ function containsOnly(array1, array2) {
 
 //Game setup functions
 
-let hideButtons = () => {
-  for (button of buttons) {
-    button.style.display = "none";
-  }
-};
-
 let loadClicked = num => {
   for (let i = 0; i < num; i++) {
     clicked.push("false");
@@ -79,6 +73,12 @@ for (let x = 1; x < buttonCount + 1; x++) {
 }
 //Select all created buttons into one array so they can be hidden together
 let buttons = document.getElementsByClassName("button");
+
+let hideButtons = () => {
+  for (button of buttons) {
+    button.style.display = "none";
+  }
+};
 
 //Start game with timer variable setting game length
 setTimeout(() => {

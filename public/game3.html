@@ -1,23 +1,19 @@
 <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
+    />
+  </head>
 
-   <head>
-      <link
-         rel="stylesheet"
-         href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
-      />
-   </head>
+  <body class="avenir bg-light-blue tc">
+    <a href="./game3.html">Restart?</a><a class="pl3" href="./">Go back</a>
+    <div class="f2" id="scoreLabel"></div>
+    <div class="f4" id="instructLabel"></div>
 
-   <body class="avenir bg-light-blue tc">
-      <div class="mt6" id="instructLabel"></div>
+    <div class="bg-red center f2 pa6 br-100" id="indicator"></div>
+    <div class="f2" id="winner"></div>
 
-      <div class="mt5 f3">
-         <div id="status"/>
-         <div id="reload" class="mh2">
-            <a href="./game2.html">Reload?</a><a class="pl3" href="./">Go back</a>
-         </div>
-      </div>
-
-      <script src="/static/app3.js"></script>
-   </body>
-
+    <script src="/static/app3.js"></script>
+  </body>
 </html>
