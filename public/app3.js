@@ -18,20 +18,20 @@ let greenLight = false;
 
 insructLabel.innerText = `You're at the red light.
 
-You hear the adjacent motorcycle revving its engine -
+You  hear the adjacent motorcycle revving its engine -
 it's a nice bike, looks to be of similar performance.
-only one way to beat this guy to the next light...
+Only one way to beat this guy to the next light...
 
 Controls are real simple: 
 Player Q lets it rip with keyCode 81 and Player P with 80.
 When you're at the next intersection, the winner starts the 
-countdown with the spacebar (32).`;
+countdown with the spacebar (32) `;
 
 pressSpace.innerText = "Press 32 to begin";
 
 let updateLabels = () => {
   scoreLabel.innerText = `Current Score: \nQ - ${qScore} wins \nP - ${pScore} wins`;
-  rtLabel.innerText = `RT: ${rt}ms \nFastest: ${
+  rtLabel.innerText = `Reaction: ${rt}ms \nFastest: ${
     pb ? pb + "ms" : "You gotta try once to be the fastest..."
   }`;
 };
@@ -78,7 +78,7 @@ let throttle = input => {
 
 let resetGame = () => {
   greenLight = false;
-  indicator.style.backgroundColor = "red";
+  indicator.style.backgroundColor = "#FF4136";
   indicator.innerText = "";
 
   //   console.log(`Current score: ${qScore}`);
