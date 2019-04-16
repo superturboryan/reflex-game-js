@@ -33,12 +33,6 @@ button.style.height = "150px";
 button.style.width = "150px";
 // button.style.margin = "5px";
 
-let hideButtons = () => {
-  for (button of buttons) {
-    button.style.display = "none";
-  }
-};
-
 let hideGrid = () => {
   buttonGrid.style.display = "none";
 };

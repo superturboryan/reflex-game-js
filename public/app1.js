@@ -16,7 +16,6 @@ reload.style.display = "none";
 //Game variables
 let lost = false;
 let won = false;
-
 let buttonCount = Math.floor(1 + Math.random() * 3);
 
 let clicked = [];
@@ -60,6 +59,12 @@ let addButton = index => {
   body.appendChild(button);
 };
 
+let hideButtons = () => {
+  for (button of buttons) {
+    button.style.display = "none";
+  }
+};
+
 //Setup UI
 
 //Populate clicked array
@@ -73,12 +78,6 @@ for (let x = 1; x < buttonCount + 1; x++) {
 }
 //Select all created buttons into one array so they can be hidden together
 let buttons = document.getElementsByClassName("button");
-
-let hideButtons = () => {
-  for (button of buttons) {
-    button.style.display = "none";
-  }
-};
 
 //Start game with timer variable setting game length
 setTimeout(() => {

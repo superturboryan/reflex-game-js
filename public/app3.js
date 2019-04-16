@@ -3,7 +3,7 @@ let scoreLabel = document.getElementById("scoreLabel");
 let rtLabel = document.getElementById("rtLabel");
 let insructLabel = document.getElementById("instructLabel");
 let pressSpace = document.getElementById("pressSpace");
-let indicator = document.getElementById("indicator");
+let indicator = window["indicator"]; // === document.getElementById("indicator");
 let qScore = 0;
 let pScore = 0;
 let rt = 0;
@@ -45,7 +45,7 @@ let startNew = input => {
   }
 };
 
-let popup = () => {
+let showGreen = () => {
   startTime = new Date();
   indicator.style.backgroundColor = "green";
   indicator.innerText = "GO GO GO!";
@@ -111,7 +111,7 @@ let startGame = () => {
     indicator.style.backgroundColor = "orange";
   }, 3000);
 
-  setTimeout(popup, 3300 + randomDelay);
+  setTimeout(showGreen, 3300 + randomDelay);
 };
 
 updateLabels();
