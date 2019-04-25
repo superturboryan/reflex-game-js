@@ -7,6 +7,7 @@ let indicator = window["indicator"]; // === document.getElementById("indicator")
 let qScore = 0;
 let pScore = 0;
 let rt = 0;
+let falseStart;
 let pb;
 let startTime;
 
@@ -48,18 +49,22 @@ let startNew = input => {
 let showGreen = () => {
   startTime = new Date();
   indicator.style.backgroundColor = "green";
-  indicator.innerText = "GO GO GO!";
+  if (!falseStart) {
+    indicator.innerText = "GO GO GO!";
+  }
   greenLight = true;
 };
 
 let throttle = input => {
   if (greenLight === false) {
     if (input.keyCode === 81) {
-      indicator.innerText = "Player Q ran the light!";
+      indicator.innerText = "Q ran the light!";
+      falseStart = true;
       pScore++;
       gameOver();
     } else if (input.keyCode === 80) {
-      indicator.innerText = "Player P ran the light!";
+      indicator.innerText = "P ran the light!";
+      falseStart = true;
       qScore++;
       gameOver();
     }
@@ -104,13 +109,14 @@ let gameOver = () => {
 };
 
 let startGame = () => {
+  falseStart = false;
+
   let randomDelay = Math.floor(Math.random() * 2000);
 
   window.addEventListener("keydown", throttle);
   setTimeout(() => {
     indicator.style.backgroundColor = "orange";
   }, 3000);
-
   setTimeout(showGreen, 3300 + randomDelay);
 };
 
